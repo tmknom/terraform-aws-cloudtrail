@@ -7,7 +7,19 @@
 # Constant definitions
 MINIMAL_DIR := $(CURDIR)/examples/minimal
 
-# Function macros
+# Macro definitions
+define brew_install
+	if type ${1} >/dev/null 2>&1; then \
+		echo "Already installed: ${1}"; \
+	else \
+		if [ -n "{3}" ]; then \
+			brew tap ${3}; \
+		fi; \
+		echo "Start: brew install ${2}"; \
+		brew install ${2}; \
+	fi
+endef
+
 define plan
 	terraform init > /dev/null; \
 	terraform fmt $(CURDIR) > /dev/null; \
@@ -16,6 +28,13 @@ endef
 
 
 # Phony Targets
+
+install: ## install development requirements
+	@$(call brew_install,tfenv,tfenv)
+	@$(call brew_install,landscape,terraform_landscape)
+	@$(call brew_install,terraform-docs,terraform-docs)
+	@$(call brew_install,tflint,tflint,wata727/tflint)
+	@tfenv install
 
 fmt: ## format code
 	terraform fmt
