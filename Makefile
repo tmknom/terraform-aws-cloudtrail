@@ -39,6 +39,9 @@ install: ## install development requirements
 fmt: ## format code
 	terraform fmt
 
+doc: ## create markdown document
+	terraform-docs md .
+
 minimal_plan: ## terraform plan of examples/minimal
 	cd ${MINIMAL_DIR}; $(call plan)
 
