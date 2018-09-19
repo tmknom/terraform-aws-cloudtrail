@@ -8,42 +8,48 @@
 MINIMAL_DIR := $(CURDIR)/examples/minimal
 
 # Macro definitions
-define brew_install
-	if type ${1} >/dev/null 2>&1; then \
-		echo "Already installed: ${1}"; \
-	else \
-		if [ -n "{3}" ]; then \
-			brew tap ${3}; \
-		fi; \
-		echo "Start: brew install ${2}"; \
-		brew install ${2}; \
-	fi
-endef
-
-define plan
-	terraform init > /dev/null; \
-	terraform fmt $(CURDIR) > /dev/null; \
-	terraform plan | tee -a /dev/stderr | landscape
+define list_shellscript
+	grep '^#!' -rn . | grep ':1:#!' | cut -d: -f1 | grep -v .git
 endef
 
 
 # Phony Targets
 
-install: ## install development requirements
-	@$(call brew_install,tfenv,tfenv)
-	@$(call brew_install,landscape,terraform_landscape)
-	@$(call brew_install,terraform-docs,terraform-docs)
-	@$(call brew_install,tflint,tflint,wata727/tflint)
-	@tfenv install
+lint: lint-terraform lint-shellscript lint-markdown lint-yaml ## Lint code
 
-fmt: ## format code
+lint-terraform:
+	docker run --rm -v "$(CURDIR):/data" wata727/tflint
+	# validate modules without variables
+	terraform validate -check-variables=false
+	# validate examples
+	find . -type f -name '*.tf' -path "./examples/*" -not -path "**/.terraform/*" -exec dirname {} \; | sort -u | \
+	xargs -I {} sh -c 'cd {} && echo {} && terraform validate'
+
+lint-shellscript:
+	$(call list_shellscript) | xargs -I {} docker run --rm -v "$(CURDIR):/mnt" koalaman/shellcheck {}
+
+lint-markdown:
+	docker run --rm -i -v "$(CURDIR):/work" tmknom/markdownlint
+
+lint-yaml:
+	docker run --rm -v "$(CURDIR):/work" tmknom/yamllint --strict .
+
+format: format-terraform format-shellscript format-markdown ## Format code
+
+format-terraform:
 	terraform fmt
 
-doc: ## create markdown document
-	terraform-docs md .
+format-shellscript:
+	$(call list_shellscript) | xargs -I {} docker run --rm -v "$(CURDIR):/work" -w /work tmknom/shfmt -i 2 -ci -kp -w {}
+
+format-markdown:
+	docker run --rm -v "$(CURDIR):/work" tmknom/prettier --parser=markdown --write '**/*.md'
+
+docs: ## Generate docs
+	docker run --rm -v "$(CURDIR):/work" tmknom/terraform-docs
 
 minimal_plan: ## terraform plan of examples/minimal
-	cd ${MINIMAL_DIR}; $(call plan)
+	cd ${MINIMAL_DIR}; terraform init; terraform plan | tee -a /dev/stderr | docker run --rm -i tmknom/terraform-landscape
 
 minimal_apply: ## terraform apply of examples/minimal
 	cd ${MINIMAL_DIR}; terraform apply
@@ -53,5 +59,5 @@ minimal_destroy: ## terraform destroy of examples/minimal
 
 
 # https://postd.cc/auto-documented-makefile/
-help: ## show help
+help: ## Show help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
