@@ -5,13 +5,21 @@
 
 
 # Constant definitions
-MINIMAL_DIR := $(CURDIR)/examples/minimal
+MINIMAL_DIR := ./examples/minimal
 
 # Macro definitions
 define list_shellscript
 	grep '^#!' -rn . | grep ':1:#!' | cut -d: -f1 | grep -v .git
 endef
 
+# TODO Check environment variables
+define terraform
+	docker run --rm -i -v "$$PWD:/work" \
+	-e AWS_ACCESS_KEY_ID=$$AWS_ACCESS_KEY_ID \
+	-e AWS_SECRET_ACCESS_KEY=$$AWS_SECRET_ACCESS_KEY \
+	-e AWS_DEFAULT_REGION=$$AWS_DEFAULT_REGION \
+	tmknom/terraform $1 $2
+endef
 
 # Phony Targets
 
@@ -49,13 +57,14 @@ docs: ## Generate docs
 	docker run --rm -v "$(CURDIR):/work" tmknom/terraform-docs
 
 minimal_plan: ## terraform plan of examples/minimal
-	cd ${MINIMAL_DIR}; terraform init; terraform plan | tee -a /dev/stderr | docker run --rm -i tmknom/terraform-landscape
+	$(call terraform,init,${MINIMAL_DIR})
+	$(call terraform,plan,${MINIMAL_DIR}) | tee -a /dev/stderr | docker run --rm -i tmknom/terraform-landscape
 
 minimal_apply: ## terraform apply of examples/minimal
-	cd ${MINIMAL_DIR}; terraform apply
+	$(call terraform,apply,${MINIMAL_DIR})
 
 minimal_destroy: ## terraform destroy of examples/minimal
-	cd ${MINIMAL_DIR}; terraform destroy
+	$(call terraform,destroy,${MINIMAL_DIR})
 
 
 # https://postd.cc/auto-documented-makefile/
