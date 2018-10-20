@@ -37,6 +37,19 @@ module "cloudtrail" {
 | cloudtrail_home_region | The region in which the trail was created. |
 | cloudtrail_name | The name of the trail. |
 
+## Makefile targets
+
+```text
+docs                           Generate docs
+format                         Format code
+help                           Show help
+install                        Install requirements
+lint                           Lint code
+terraform-apply-minimal        Run terraform apply examples/minimal
+terraform-destroy-minimal      Run terraform destroy examples/minimal
+terraform-plan-minimal         Run terraform plan examples/minimal
+```
+
 ## License
 
 Apache 2 Licensed. See LICENSE for full details.
