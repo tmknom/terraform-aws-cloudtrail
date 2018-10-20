@@ -92,14 +92,14 @@ format-markdown:
 docs: ## Generate docs
 	docker run --rm -v "$(CURDIR):/work" tmknom/terraform-docs
 
-minimal_plan: ## terraform plan of examples/minimal
+terraform-plan-minimal: ## Run terraform plan examples/minimal
 	$(call terraform,init,${MINIMAL_DIR})
 	$(call terraform,plan,${MINIMAL_DIR}) | tee -a /dev/stderr | docker run --rm -i tmknom/terraform-landscape
 
-minimal_apply: ## terraform apply of examples/minimal
+terraform-apply-minimal: ## Run terraform apply examples/minimal
 	$(call terraform,apply,${MINIMAL_DIR})
 
-minimal_destroy: ## terraform destroy of examples/minimal
+terraform-destroy-minimal: ## Run terraform destroy examples/minimal
 	$(call terraform,destroy,${MINIMAL_DIR})
 
 
