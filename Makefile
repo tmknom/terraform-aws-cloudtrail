@@ -32,7 +32,7 @@ endef
 
 define check_requirement
 	if ! type ${1} >/dev/null 2>&1; then \
-		printf "Not found %s, run command\n\n" ${1}; \
+		printf "\nNot found %s, run command\n\n" ${1}; \
 		printf "    \033[36mbrew install %s\033[0m\n" ${1}; \
 	fi
 endef
@@ -41,7 +41,7 @@ define check_environment_variable
 	key="\$$${1}" && \
 	value=$$(eval "echo $${key}") && \
 	if [ -z "$${value}" ]; then \
-		printf "%s is unset, run command\n\n" $${key}; \
+		printf "\n%s is unset, run command\n\n" $${key}; \
 		printf "    \033[36mexport %s=<value>\033[0m\n" ${1}; \
 	fi
 endef
