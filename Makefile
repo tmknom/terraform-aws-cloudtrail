@@ -27,7 +27,7 @@ define terraform
 	tmknom/terraform $1 $2
 endef
 
-define check_requirement_tool
+define check_requirement
 	if ! type ${1} >/dev/null 2>&1; then \
 		printf "Not found %s, run command\n\n" ${1}; \
 		printf "    \033[36mbrew install %s\033[0m\n" ${1}; \
@@ -44,15 +44,15 @@ define check_environment_variable
 endef
 
 # Phony Targets
-install: check-requirement-tools install-images check-env ## Install requirements
+install: check-requirements install-images check-env ## Install requirements
 
 install-images:
 	@for image in ${DOCKER_IMAGES}; do \
 		echo "docker pull $${image}" && docker pull $${image}; \
 	done
 
-check-requirement-tools:
-	@$(call check_requirement_tool,docker)
+check-requirements:
+	@$(call check_requirement,docker)
 
 check-env:
 	@for val in ${ENVIRONMENT_VARIABLES}; do \
