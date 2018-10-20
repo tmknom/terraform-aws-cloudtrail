@@ -5,11 +5,13 @@
 
 
 # Constant definitions
+TERRAFORM_VERSION := 0.11.9
+TERRAFORM_IMAGE := hashicorp/terraform:${TERRAFORM_VERSION}
 ENVIRONMENT_VARIABLES := AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_DEFAULT_REGION
 
 LINTER_IMAGES := koalaman/shellcheck tmknom/markdownlint tmknom/yamllint
 FORMATTER_IMAGES := tmknom/shfmt tmknom/prettier
-TERRAFORM_IMAGES := tmknom/terraform wata727/tflint tmknom/terraform-docs tmknom/terraform-landscape
+TERRAFORM_IMAGES := ${TERRAFORM_IMAGE} wata727/tflint tmknom/terraform-docs tmknom/terraform-landscape
 DOCKER_IMAGES := ${LINTER_IMAGES} ${FORMATTER_IMAGES} ${TERRAFORM_IMAGES}
 
 MINIMAL_DIR := ./examples/minimal
@@ -20,11 +22,11 @@ define list_shellscript
 endef
 
 define terraform
-	docker run --rm -i -v "$$PWD:/work" \
+	docker run --rm -i -v "$$PWD:/work" -w /work \
 	-e AWS_ACCESS_KEY_ID=$$AWS_ACCESS_KEY_ID \
 	-e AWS_SECRET_ACCESS_KEY=$$AWS_SECRET_ACCESS_KEY \
 	-e AWS_DEFAULT_REGION=$$AWS_DEFAULT_REGION \
-	tmknom/terraform $1 $2
+	${TERRAFORM_IMAGE} $1 $2
 endef
 
 define check_requirement
