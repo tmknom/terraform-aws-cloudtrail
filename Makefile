@@ -7,6 +7,11 @@
 # Constant definitions
 ENVIRONMENT_VARIABLES := AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_DEFAULT_REGION
 
+LINTER_IMAGES := koalaman/shellcheck tmknom/markdownlint tmknom/yamllint
+FORMATTER_IMAGES := tmknom/shfmt tmknom/prettier
+TERRAFORM_IMAGES := tmknom/terraform wata727/tflint tmknom/terraform-docs tmknom/terraform-landscape
+DOCKER_IMAGES := ${LINTER_IMAGES} ${FORMATTER_IMAGES} ${TERRAFORM_IMAGES}
+
 MINIMAL_DIR := ./examples/minimal
 
 # Macro definitions
@@ -39,6 +44,10 @@ define check_environment_variable
 endef
 
 # Phony Targets
+install-images: ## Install images
+	@for image in ${DOCKER_IMAGES}; do \
+		echo "docker pull $${image}" && docker pull $${image}; \
+	done
 
 check-requirement-tools: ## Check requirement tools
 	@$(call check_requirement_tool,docker)
