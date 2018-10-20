@@ -5,6 +5,8 @@
 
 
 # Constant definitions
+ENVIRONMENT_VARIABLES := AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_DEFAULT_REGION
+
 MINIMAL_DIR := ./examples/minimal
 
 # Macro definitions
@@ -12,7 +14,6 @@ define list_shellscript
 	grep '^#!' -rn . | grep ':1:#!' | cut -d: -f1 | grep -v .git
 endef
 
-# TODO Check environment variables
 define terraform
 	docker run --rm -i -v "$$PWD:/work" \
 	-e AWS_ACCESS_KEY_ID=$$AWS_ACCESS_KEY_ID \
@@ -21,7 +22,21 @@ define terraform
 	tmknom/terraform $1 $2
 endef
 
+define check_environment_variable
+	key="\$$${1}" && \
+	value=$$(eval "echo $${key}") && \
+	if [ -z "$${value}" ]; then \
+		printf "%s is unset, run command\n\n" $${key}; \
+		printf "    \033[36mexport %s=<value>\033[0m\n" ${1}; \
+	fi
+endef
+
 # Phony Targets
+
+check: ## Check environment variables
+	@for val in ${ENVIRONMENT_VARIABLES}; do \
+		$(call check_environment_variable,$${val}); \
+	done
 
 lint: lint-terraform lint-shellscript lint-markdown lint-yaml ## Lint code
 
