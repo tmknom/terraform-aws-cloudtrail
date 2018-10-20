@@ -44,15 +44,17 @@ define check_environment_variable
 endef
 
 # Phony Targets
-install-images: ## Install images
+install: check-requirement-tools install-images check-env ## Install requirements
+
+install-images:
 	@for image in ${DOCKER_IMAGES}; do \
 		echo "docker pull $${image}" && docker pull $${image}; \
 	done
 
-check-requirement-tools: ## Check requirement tools
+check-requirement-tools:
 	@$(call check_requirement_tool,docker)
 
-check-env: ## Check environment variables
+check-env:
 	@for val in ${ENVIRONMENT_VARIABLES}; do \
 		$(call check_environment_variable,$${val}); \
 	done
