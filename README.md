@@ -37,7 +37,29 @@ module "cloudtrail" {
 | cloudtrail_home_region | The region in which the trail was created. |
 | cloudtrail_name | The name of the trail. |
 
-## Makefile targets
+## Development
+
+### Requirements
+
+- [Docker](https://www.docker.com/)
+
+### Configure environment variables
+
+```shell
+export AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE
+export AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+export AWS_DEFAULT_REGION=ap-northeast-1
+```
+
+### Installation
+
+```shell
+git clone git@github.com:tmknom/terraform-aws-cloudtrail.git
+cd terraform-aws-cloudtrail
+make install
+```
+
+### Makefile targets
 
 ```text
 docs                           Generate docs
