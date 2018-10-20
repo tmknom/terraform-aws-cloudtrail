@@ -22,6 +22,13 @@ define terraform
 	tmknom/terraform $1 $2
 endef
 
+define check_requirement_tool
+	if ! type ${1} >/dev/null 2&>1; then \
+		printf "Not found %s, run command\n\n" ${1}; \
+		printf "    \033[36mbrew install %s\033[0m\n" ${1}; \
+	fi
+endef
+
 define check_environment_variable
 	key="\$$${1}" && \
 	value=$$(eval "echo $${key}") && \
@@ -32,6 +39,9 @@ define check_environment_variable
 endef
 
 # Phony Targets
+
+check-requirement-tools: ## Check requirement tools
+	@$(call check_requirement_tool,docker)
 
 check: ## Check environment variables
 	@for val in ${ENVIRONMENT_VARIABLES}; do \
