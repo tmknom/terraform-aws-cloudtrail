@@ -28,7 +28,7 @@ define terraform
 endef
 
 define check_requirement_tool
-	if ! type ${1} >/dev/null 2&>1; then \
+	if ! type ${1} >/dev/null 2>&1; then \
 		printf "Not found %s, run command\n\n" ${1}; \
 		printf "    \033[36mbrew install %s\033[0m\n" ${1}; \
 	fi
