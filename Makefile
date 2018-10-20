@@ -43,7 +43,7 @@ endef
 check-requirement-tools: ## Check requirement tools
 	@$(call check_requirement_tool,docker)
 
-check: ## Check environment variables
+check-env: ## Check environment variables
 	@for val in ${ENVIRONMENT_VARIABLES}; do \
 		$(call check_environment_variable,$${val}); \
 	done
