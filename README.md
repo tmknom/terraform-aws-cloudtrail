@@ -92,6 +92,17 @@ terraform-plan-minimal         Run terraform plan examples/minimal
 upgrade                        Upgrade makefile
 ```
 
+### Releasing new versions
+
+```shell
+git tag 1.X.X
+git push origin 1.X.X
+```
+
+### Terraform Module Registry
+
+- <https://registry.terraform.io/modules/tmknom/cloudtrail/aws>
+
 ## License
 
 Apache 2 Licensed. See LICENSE for full details.
