@@ -3,7 +3,7 @@
 # https://www.terraform.io/docs/configuration/modules.html
 
 module "cloudtrail" {
-  source         = "git::https://github.com/tmknom/terraform-aws-cloudtrail.git?ref=master"
+  source         = "../../"
   name           = "default-trail"
   s3_bucket_name = "cloudtrail-bucket"
 }
