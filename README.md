@@ -89,6 +89,7 @@ terraform-destroy-complete     Run terraform destroy examples/complete
 terraform-destroy-minimal      Run terraform destroy examples/minimal
 terraform-plan-complete        Run terraform plan examples/complete
 terraform-plan-minimal         Run terraform plan examples/minimal
+upgrade                        Upgrade makefile
 ```
 
 ## License
