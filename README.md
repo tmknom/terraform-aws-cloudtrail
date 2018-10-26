@@ -88,11 +88,13 @@ make install
 ### Makefile targets
 
 ```text
+clean                          Clean .terraform
 docs                           Generate docs
 format                         Format code
 help                           Show help
 install                        Install requirements
 lint                           Lint code
+release                        Release GitHub and Terraform Module Registry
 terraform-apply-complete       Run terraform apply examples/complete
 terraform-apply-minimal        Run terraform apply examples/minimal
 terraform-destroy-complete     Run terraform destroy examples/complete
