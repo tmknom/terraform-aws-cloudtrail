@@ -1,5 +1,9 @@
 # terraform-aws-cloudtrail
 
+[![CircleCI](https://circleci.com/gh/tmknom/terraform-aws-cloudtrail.svg?style=svg)](https://circleci.com/gh/tmknom/terraform-aws-cloudtrail)
+[![GitHub tag](https://img.shields.io/github/tag/tmknom/terraform-aws-cloudtrail.svg)](https://registry.terraform.io/modules/tmknom/cloudtrail/aws)
+[![License](https://img.shields.io/github/license/tmknom/terraform-aws-cloudtrail.svg)](https://opensource.org/licenses/Apache-2.0)
+
 Terraform module which creates CloudTrail resources on AWS.
 
 ## Description
