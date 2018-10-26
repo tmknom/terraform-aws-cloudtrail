@@ -1,5 +1,9 @@
 # terraform-aws-cloudtrail
 
+[![CircleCI](https://circleci.com/gh/tmknom/terraform-aws-cloudtrail.svg?style=svg)](https://circleci.com/gh/tmknom/terraform-aws-cloudtrail)
+[![GitHub tag](https://img.shields.io/github/tag/tmknom/terraform-aws-cloudtrail.svg)](https://registry.terraform.io/modules/tmknom/cloudtrail/aws)
+[![License](https://img.shields.io/github/license/tmknom/terraform-aws-cloudtrail.svg)](https://opensource.org/licenses/Apache-2.0)
+
 Terraform module which creates CloudTrail resources on AWS.
 
 ## Description
@@ -88,11 +92,13 @@ make install
 ### Makefile targets
 
 ```text
+clean                          Clean .terraform
 docs                           Generate docs
 format                         Format code
 help                           Show help
 install                        Install requirements
 lint                           Lint code
+release                        Release GitHub and Terraform Module Registry
 terraform-apply-complete       Run terraform apply examples/complete
 terraform-apply-minimal        Run terraform apply examples/minimal
 terraform-destroy-complete     Run terraform destroy examples/complete
@@ -104,10 +110,7 @@ upgrade                        Upgrade makefile
 
 ### Releasing new versions
 
-```shell
-git tag v1.X.X
-git push origin v1.X.X
-```
+Bump VERSION file, and run `make release`.
 
 ### Terraform Module Registry
 
