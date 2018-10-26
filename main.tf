@@ -26,4 +26,7 @@ resource "aws_cloudtrail" "default" {
   # you can use CloudTrail log file integrity validation.
   # https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-log-file-validation-intro.html
   enable_log_file_validation = "${var.enable_log_file_validation}"
+
+  # A mapping of tags to assign to the bucket.
+  tags = "${var.tags}"
 }

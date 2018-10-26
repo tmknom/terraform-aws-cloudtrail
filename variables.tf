@@ -35,3 +35,9 @@ variable "enable_log_file_validation" {
   type        = "string"
   description = "Specifies whether log file integrity validation is enabled."
 }
+
+variable "tags" {
+  type        = "map"
+  default     = {}
+  description = "A mapping of tags to assign to the bucket."
+}
