@@ -9,7 +9,6 @@ Terraform module which creates CloudTrail resources on AWS.
 ## Description
 
 CloudTrail is an AWS service that helps you enable governance, compliance, and operational and risk auditing of your AWS account.
-
 This module provides recommended settings.
 
 - Enable for all AWS regions
@@ -22,7 +21,7 @@ This module provides recommended settings.
 
 ```hcl
 module "cloudtrail" {
-  source         = "git::https://github.com/tmknom/terraform-aws-cloudtrail.git?ref=tags/1.0.0"
+  source         = "git::https://github.com/tmknom/terraform-aws-cloudtrail.git?ref=tags/1.1.0"
   name           = "default-trail"
   s3_bucket_name = "cloudtrail-bucket"
 }
@@ -32,7 +31,7 @@ module "cloudtrail" {
 
 ```hcl
 module "cloudtrail" {
-  source         = "git::https://github.com/tmknom/terraform-aws-cloudtrail.git?ref=tags/1.0.0"
+  source         = "git::https://github.com/tmknom/terraform-aws-cloudtrail.git?ref=tags/1.1.0"
   name           = "default-trail"
   s3_bucket_name = "cloudtrail-bucket"
 
