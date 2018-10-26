@@ -11,4 +11,9 @@ module "cloudtrail" {
   is_multi_region_trail         = false
   include_global_service_events = false
   enable_log_file_validation    = false
+
+  tags = {
+    Environment = "prod"
+    Name        = "default-trail"
+  }
 }

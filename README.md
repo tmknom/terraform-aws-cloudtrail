@@ -40,6 +40,11 @@ module "cloudtrail" {
   is_multi_region_trail         = false
   include_global_service_events = false
   enable_log_file_validation    = false
+
+  tags = {
+    Environment = "prod"
+    Name        = "default-trail"
+  }
 }
 ```
 
@@ -58,6 +63,7 @@ module "cloudtrail" {
 | is_multi_region_trail         | Specifies whether the trail is created in the current region or in all regions.                     | string | `true`  |    no    |
 | name                          | Specifies the name of the trail.                                                                    | string |    -    |   yes    |
 | s3_bucket_name                | Specifies the name of the S3 bucket designated for publishing log files.                            | string |    -    |   yes    |
+| tags                          | A mapping of tags to assign to the bucket.                                                          |  map   | `<map>` |    no    |
 
 ## Outputs
 
