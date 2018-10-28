@@ -8,7 +8,7 @@ Terraform module which creates CloudTrail resources on AWS.
 
 ## Description
 
-CloudTrail is an AWS service that helps you enable governance, compliance, and operational and risk auditing of your AWS account.
+Provision [CloudTrail](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html).
 This module provides recommended settings.
 
 - Enable for all AWS regions
