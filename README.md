@@ -40,11 +40,28 @@ module "cloudtrail" {
   include_global_service_events = false
   enable_log_file_validation    = false
 
+  cloud_watch_logs_role_arn  = "${module.iam_role.iam_role_arn}"
+  cloud_watch_logs_group_arn = "${aws_cloudwatch_log_group.complete.arn}"
+
   tags = {
     Environment = "prod"
     Name        = "default-trail"
   }
 }
+
+resource "aws_cloudwatch_log_group" "complete" {
+  name = "CloudTrail/logs"
+}
+
+module "iam_role" {
+  source             = "git::https://github.com/tmknom/terraform-aws-iam-role.git?ref=tags/1.2.0"
+  name               = "sending-cloudwatch-logs-for-cloudtrail"
+  assume_role_policy = "${data.aws_iam_policy_document.assume_role_policy.json}"
+  policy             = "${data.aws_iam_policy_document.policy.json}"
+  description        = "Send log events to CloudWatch Logs from CloudTrail"
+}
+
+# Omitted below.
 ```
 
 ## Examples
@@ -56,6 +73,8 @@ module "cloudtrail" {
 
 | Name                          | Description                                                                                         |  Type  | Default | Required |
 | ----------------------------- | --------------------------------------------------------------------------------------------------- | :----: | :-----: | :------: |
+| cloud_watch_logs_group_arn    | Specifies a log group name using an Amazon Resource Name (ARN).                                     | string | `` | no |
+| cloud_watch_logs_role_arn     | Specifies the role for the CloudWatch Logs endpoint to assume to write to a user’s log group.       | string | `` | no |
 | enable_log_file_validation    | Specifies whether log file integrity validation is enabled.                                         | string | `true`  |    no    |
 | enable_logging                | Enables logging for the trail.                                                                      | string | `true`  |    no    |
 | include_global_service_events | Specifies whether the trail is publishing events from global services such as IAM to the log files. | string | `true`  |    no    |
