@@ -27,6 +27,15 @@ resource "aws_cloudtrail" "default" {
   # https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-log-file-validation-intro.html
   enable_log_file_validation = "${var.enable_log_file_validation}"
 
+  # Role for CloudTrail that enables it to send events to the CloudWatch Logs log group.
+  # https://docs.aws.amazon.com/awscloudtrail/latest/userguide/send-cloudtrail-events-to-cloudwatch-logs.html#send-cloudtrail-events-to-cloudwatch-logs-cli-create-role
+  cloud_watch_logs_role_arn = "${var.cloud_watch_logs_role_arn}"
+
+  # You can configure CloudTrail with CloudWatch Logs to monitor your trail logs
+  # and be notified when specific activity occurs.
+  # https://docs.aws.amazon.com/awscloudtrail/latest/userguide/send-cloudtrail-events-to-cloudwatch-logs.html#send-cloudtrail-events-to-cloudwatch-logs-cli-create-log-group
+  cloud_watch_logs_group_arn = "${var.cloud_watch_logs_group_arn}"
+
   # A mapping of tags to assign to the bucket.
   tags = "${var.tags}"
 }
