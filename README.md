@@ -21,7 +21,7 @@ This module provides recommended settings.
 
 ```hcl
 module "cloudtrail" {
-  source         = "git::https://github.com/tmknom/terraform-aws-cloudtrail.git?ref=tags/1.1.0"
+  source         = "git::https://github.com/tmknom/terraform-aws-cloudtrail.git?ref=tags/1.2.0"
   name           = "default-trail"
   s3_bucket_name = "cloudtrail-bucket"
 }
@@ -31,7 +31,7 @@ module "cloudtrail" {
 
 ```hcl
 module "cloudtrail" {
-  source         = "git::https://github.com/tmknom/terraform-aws-cloudtrail.git?ref=tags/1.1.0"
+  source         = "git::https://github.com/tmknom/terraform-aws-cloudtrail.git?ref=tags/1.2.0"
   name           = "default-trail"
   s3_bucket_name = "cloudtrail-bucket"
 
