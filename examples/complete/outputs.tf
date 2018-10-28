@@ -1,7 +1,3 @@
-# Output Configuration
-#
-# https://www.terraform.io/docs/configuration/outputs.html
-
 output "cloudtrail_arn" {
   value       = "${module.cloudtrail.cloudtrail_arn}"
   description = "The Amazon Resource Name of the trail."
