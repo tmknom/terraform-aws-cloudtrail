@@ -1,6 +1,6 @@
-# Resource Configuration
+# Terraform module which creates CloudTrail resources on AWS.
 #
-# https://www.terraform.io/docs/configuration/resources.html
+# https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html
 
 # https://www.terraform.io/docs/providers/aws/r/cloudtrail.html
 resource "aws_cloudtrail" "default" {
