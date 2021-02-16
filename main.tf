@@ -34,8 +34,8 @@ resource "aws_cloudtrail" "default" {
   # You can configure CloudTrail with CloudWatch Logs to monitor your trail logs
   # and be notified when specific activity occurs.
   # https://docs.aws.amazon.com/awscloudtrail/latest/userguide/send-cloudtrail-events-to-cloudwatch-logs.html#send-cloudtrail-events-to-cloudwatch-logs-cli-create-log-group
-  cloud_watch_logs_group_arn = "${var.cloud_watch_logs_group_arn}"
-
+  cloud_watch_logs_group_arn = "${var.cloud_watch_logs_group_arn}:*"
+ 
   # A mapping of tags to assign to the bucket.
   tags = "${var.tags}"
 }
