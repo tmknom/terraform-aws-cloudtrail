@@ -45,7 +45,7 @@ variable "cloud_watch_logs_group_arn" {
 }
 
 variable "tags" {
-  type        = "map"
+  type        = map
   default     = {}
   description = "A mapping of tags to assign to the bucket."
 }
