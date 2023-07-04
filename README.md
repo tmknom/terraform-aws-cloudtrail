@@ -72,15 +72,16 @@ module "iam_role" {
 ## Inputs
 
 | Name                          | Description                                                                                         |  Type  | Default | Required |
-| ----------------------------- | --------------------------------------------------------------------------------------------------- | :----: | :-----: | :------: |
+| ----------------------------- |-----------------------------------------------------------------------------------------------------|:------:|:-------:| :------: |
 | name                          | Specifies the name of the trail.                                                                    | string |    -    |   yes    |
 | s3_bucket_name                | Specifies the name of the S3 bucket designated for publishing log files.                            | string |    -    |   yes    |
-| cloud_watch_logs_group_arn    | Specifies a log group name using an Amazon Resource Name (ARN).                                     | string | `` | no |
-| cloud_watch_logs_role_arn     | Specifies the role for the CloudWatch Logs endpoint to assume to write to a user’s log group.       | string | `` | no |
+| cloud_watch_logs_group_arn    | Specifies a log group name using an Amazon Resource Name (ARN).                                     | string |   ``    | no |
+| cloud_watch_logs_role_arn     | Specifies the role for the CloudWatch Logs endpoint to assume to write to a user’s log group.       | string |   ``    | no |
 | enable_log_file_validation    | Specifies whether log file integrity validation is enabled.                                         | string | `true`  |    no    |
 | enable_logging                | Enables logging for the trail.                                                                      | string | `true`  |    no    |
 | include_global_service_events | Specifies whether the trail is publishing events from global services such as IAM to the log files. | string | `true`  |    no    |
 | is_multi_region_trail         | Specifies whether the trail is created in the current region or in all regions.                     | string | `true`  |    no    |
+| is_organization_trail         | Whether the trail is an AWS Organizations trail.                                                    |  bool  |  false  |    no    |
 | tags                          | A mapping of tags to assign to the bucket.                                                          |  map   |  `{}`   |    no    |
 
 ## Outputs

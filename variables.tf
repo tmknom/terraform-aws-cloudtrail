@@ -44,6 +44,12 @@ variable "cloud_watch_logs_group_arn" {
   description = "Specifies a log group name using an Amazon Resource Name (ARN)."
 }
 
+variable "is_organization_trail" {
+  default     = false
+  type        = bool
+  description = "Whether the trail is an AWS Organizations trail."
+}
+
 variable "tags" {
   type        = map
   default     = {}
